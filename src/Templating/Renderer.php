@@ -5,10 +5,7 @@ namespace Drupal\handlebars_theme_handler\Templating;
 use Drupal\handlebars_theme_handler\FilesUtility;
 use Handlebars\Cache;
 use Handlebars\Handlebars;
-use Handlebars\Helper;
 use Handlebars\Loader\FilesystemLoader;
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\Config\FileLocator;
 
 /**
@@ -62,6 +59,7 @@ class Renderer {
       [
         'loader' => $loader,
         'partials_loader' => $loader,
+        'enableDataVariables' => FALSE,
       ]
     );
   }
@@ -79,14 +77,14 @@ class Renderer {
   }
 
   /**
-   * Adds the given helper to the rendering service
+   * Adds the given helper to the rendering service.
    *
-   * @param string $helperName Name of the helper
-   * @param Helper $helper Helper
-   *
-   * @return void
+   * @param string $helperName
+   *   Name of the helper.
+   * @param callable $helper
+   *   Helper function.
    */
-  public function addHelper($helperName, Helper $helper) {
+  public function addHelper($helperName, callable $helper) {
     $this->handlebarsRenderingEngine->addHelper($helperName, $helper);
   }
 
